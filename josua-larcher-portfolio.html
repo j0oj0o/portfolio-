@@ -1,0 +1,1450 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Josua Larcher – Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #050d1a;
+    --bg2: #070f1f;
+    --card: #0d1526;
+    --card2: #111d30;
+    --blue: #3b7ef8;
+    --blue-light: #60a5fa;
+    --cyan: #22d3ee;
+    --green: #10b981;
+    --amber: #f59e0b;
+    --purple: #a855f7;
+    --text: #e2e8f0;
+    --muted: #64748b;
+    --border: rgba(255,255,255,0.07);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  .nav-logo {
+    position: fixed;
+    top: 1.5rem;
+    left: 1.5rem;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #1a2540;
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: white;
+    z-index: 100;
+    letter-spacing: -0.02em;
+  }
+
+  /* ── SIDE PROGRESS (contact page) ── */
+  .side-nav {
+    position: fixed;
+    left: 1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    z-index: 50;
+  }
+  .side-nav-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.15);
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  .side-nav-dot.active { background: var(--blue); }
+  .side-nav-line {
+    position: fixed;
+    left: calc(1.5rem + 3px);
+    top: 80px;
+    width: 2px;
+    height: calc(100vh - 160px);
+    background: linear-gradient(to bottom, var(--blue) 0%, transparent 100%);
+    opacity: 0.4;
+  }
+
+  /* ══════════════════════════════
+     SECTION 1 — HERO
+  ══════════════════════════════ */
+  #hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 30% 40%, rgba(30,40,100,0.6) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 70% 50%, rgba(80,30,60,0.4) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 60% at 65% 55%, rgba(60,120,50,0.2) 0%, transparent 70%),
+      #060d1a;
+  }
+  .hero-badge {
+    display: inline-block;
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 999px;
+    padding: 0.35rem 1rem;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+    position: relative;
+  }
+  .hero-name {
+    position: relative;
+    z-index: 1;
+  }
+  .hero-name .first {
+    display: block;
+    font-size: clamp(4rem, 10vw, 7rem);
+    font-weight: 900;
+    color: #fff;
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+  .hero-name .last {
+    display: block;
+    font-size: clamp(4rem, 10vw, 7rem);
+    font-weight: 900;
+    color: rgba(180,190,210,0.5);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+  }
+  .hero-sub {
+    position: relative;
+    z-index: 1;
+    margin-top: 1.5rem;
+    color: rgba(255,255,255,0.7);
+    font-size: 1.05rem;
+    line-height: 1.7;
+  }
+  .hero-ctas {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .btn-primary {
+    background: var(--blue);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.75rem;
+    border-radius: 999px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+  .btn-primary:hover { opacity: 0.85; }
+  .btn-outline {
+    background: transparent;
+    color: white;
+    border: 1px solid rgba(255,255,255,0.3);
+    padding: 0.75rem 1.75rem;
+    border-radius: 999px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: border-color 0.2s;
+  }
+  .btn-outline:hover { border-color: rgba(255,255,255,0.6); }
+  .hero-explore {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: #111d30;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 0.6rem 1rem 0.6rem 1.5rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+    cursor: pointer;
+    z-index: 1;
+  }
+  .hero-explore .arrow-btn {
+    width: 30px; height: 30px;
+    background: var(--blue);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem;
+  }
+  /* meteor */
+  .meteor {
+    position: absolute;
+    right: 25%;
+    top: 35%;
+    width: 2px;
+    height: 80px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.6), transparent);
+    transform: rotate(-35deg);
+    opacity: 0.4;
+  }
+
+  /* ══════════════════════════════
+     SECTION 2 — PORTRAIT
+  ══════════════════════════════ */
+  #portrait {
+    padding: 6rem 5% 6rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 5rem;
+    align-items: start;
+  }
+  .portrait-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 1.5rem;
+  }
+  .portrait-eyebrow .icon-circle {
+    width: 32px; height: 32px;
+    background: rgba(59,126,248,0.15);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.9rem;
+  }
+  .portrait-left {
+    border-left: 3px solid var(--blue);
+    padding-left: 2rem;
+  }
+  .portrait-title {
+    font-size: clamp(2.2rem, 4vw, 3rem);
+    font-weight: 800;
+    line-height: 1.15;
+    color: #fff;
+    margin-bottom: 2rem;
+  }
+  .portrait-title span { color: var(--blue); }
+  .portrait-body p {
+    color: rgba(255,255,255,0.65);
+    line-height: 1.8;
+    margin-bottom: 1.2rem;
+    font-size: 0.95rem;
+    max-width: 58ch;
+  }
+  .portrait-body strong { color: #fff; }
+  .profil-card {
+    background: #0d1526;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.25rem;
+  }
+  .profil-card h3 {
+    font-size: 0.8rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .profil-card h3::before {
+    content: '';
+    display: inline-block;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--blue);
+  }
+  .profil-row {
+    background: #111d30;
+    border-radius: 10px;
+    padding: 0.75rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.6rem;
+  }
+  .profil-row-left {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    font-weight: 700;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+  .profil-row-left .ri { color: var(--blue); font-size: 0.9rem; }
+  .profil-row span.val {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #fff;
+  }
+  .quote-card {
+    background: #111d30;
+    border-radius: 12px;
+    padding: 1.25rem;
+    margin-top: 1rem;
+    font-size: 0.85rem;
+    font-style: italic;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.6;
+  }
+
+  /* ══════════════════════════════
+     SECTION 3 — PARCOURS
+  ══════════════════════════════ */
+  #parcours {
+    padding: 6rem 5%;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  .section-title {
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-weight: 900;
+    color: #fff;
+    letter-spacing: -0.03em;
+    margin-bottom: 0.5rem;
+  }
+  .section-title span { color: var(--blue); }
+  .section-sub {
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin-bottom: 3.5rem;
+  }
+  .timeline {
+    position: relative;
+    padding-left: 4rem;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 1.35rem;
+    top: 0; bottom: 0;
+    width: 2px;
+    background: rgba(255,255,255,0.06);
+  }
+  .timeline-item {
+    position: relative;
+    margin-bottom: 2.5rem;
+  }
+  .timeline-year {
+    position: absolute;
+    left: -4rem;
+    top: 1.2rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--muted);
+    white-space: nowrap;
+    width: 3.2rem;
+    text-align: right;
+  }
+  .timeline-dot {
+    position: absolute;
+    left: calc(-4rem + 3.8rem);
+    top: 1.35rem;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: #1e2d4a;
+    border: 2px solid rgba(255,255,255,0.15);
+    transform: translateX(-50%);
+    z-index: 1;
+  }
+  .timeline-card {
+    background: #0d1526;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.4rem 1.6rem;
+    cursor: pointer;
+    transition: border-color 0.2s;
+  }
+  .timeline-card:hover { border-color: rgba(59,126,248,0.3); }
+  .timeline-card h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 0.3rem;
+  }
+  .timeline-card .company {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--blue);
+    margin-bottom: 1rem;
+  }
+  .timeline-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    margin-bottom: 0.8rem;
+  }
+  .timeline-tag {
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.55);
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .timeline-tag::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--blue);
+    flex-shrink: 0;
+  }
+  .voir-plus {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--blue);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+  }
+
+  /* ══════════════════════════════
+     SECTION 4 — EXPERTISES
+  ══════════════════════════════ */
+  #expertises {
+    padding: 6rem 5%;
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+  }
+  #expertises::before {
+    content: '';
+    position: absolute;
+    left: 2rem;
+    top: 4rem;
+    bottom: 4rem;
+    width: 3px;
+    background: linear-gradient(to bottom, var(--blue), transparent);
+    opacity: 0.5;
+  }
+  #expertises .section-title { margin-bottom: 0.5rem; }
+  #expertises .section-sub { margin-bottom: 3rem; }
+  .expertise-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+    margin-bottom: 5rem;
+  }
+  .expertise-card {
+    background: #0d1526;
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 2rem 1.5rem;
+    text-align: left;
+  }
+  .exp-icon {
+    width: 52px; height: 52px;
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .exp-icon.blue { background: rgba(59,126,248,0.15); }
+  .exp-icon.green { background: rgba(16,185,129,0.15); }
+  .exp-icon.amber { background: rgba(245,158,11,0.15); }
+  .exp-icon.indigo { background: rgba(99,102,241,0.15); }
+  .expertise-card h3 {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 1.25rem;
+    line-height: 1.2;
+  }
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .skill-tag {
+    background: #111d30;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 0.3rem 0.7rem;
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: rgba(255,255,255,0.65);
+  }
+
+  /* ══════════════════════════════
+     SECTION 5 — DIPLÔMES & RÉALISATIONS
+  ══════════════════════════════ */
+  #realisations {
+    padding: 2rem 5% 6rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  #realisations .section-title { margin-bottom: 0.3rem; }
+  #realisations .section-title .amp { color: var(--blue); font-weight: 300; }
+  #realisations .section-sub { margin-bottom: 2.5rem; }
+  .real-grid {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    grid-template-rows: auto auto auto auto;
+    gap: 1rem;
+  }
+  .real-card {
+    background: #0d1526;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.5rem;
+    overflow: hidden;
+    position: relative;
+  }
+  .real-card.bac {
+    grid-column: 1;
+    grid-row: 1 / 3;
+    min-height: 240px;
+  }
+  .real-card.bac .big-icon {
+    position: absolute;
+    right: -1rem; top: -1rem;
+    font-size: 8rem;
+    opacity: 0.1;
+    line-height: 1;
+  }
+  .real-card.debian { grid-column: 2; grid-row: 1; }
+  .real-card.cisco { grid-column: 2; grid-row: 2; }
+  .real-card.cv { grid-column: 1; grid-row: 3; }
+  .real-card.anssi { grid-column: 2; grid-row: 3; }
+  .real-card.pix { grid-column: 3; grid-row: 3; display:none; }
+  .real-card.cta { grid-column: 1; grid-row: 4; background: var(--blue); border-color: var(--blue); }
+
+  /* Rework grid for 3 cols bottom row */
+  .bottom-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .real-card .eyebrow-label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 0.7rem;
+  }
+  .real-card .eyebrow-label.amber { color: var(--amber); }
+  .real-card .eyebrow-label.purple { color: var(--purple); }
+  .real-card .eyebrow-label.cyan { color: var(--cyan); }
+  .real-card h3 {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+  }
+  .real-card p {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.5;
+  }
+  .real-card .card-icon {
+    width: 44px; height: 44px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    background: rgba(59,126,248,0.12);
+  }
+  .real-card .card-icon.amber-bg { background: rgba(245,158,11,0.12); }
+  .real-card .card-icon.green-bg { background: rgba(16,185,129,0.12); }
+  .real-card .card-icon.purple-bg { background: rgba(168,85,247,0.12); }
+  .real-card .year-tag {
+    font-size: 0.7rem;
+    color: var(--blue);
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+  }
+  .real-card .doc-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--blue);
+    margin-top: 0.75rem;
+    text-decoration: none;
+  }
+  .real-card.cta-blue {
+    background: var(--blue);
+    border-color: var(--blue);
+  }
+  .real-card.cta-blue h3 { font-size: 1.2rem; color: #fff; }
+  .real-card.cta-blue .me-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: rgba(0,0,0,0.2);
+    color: #fff;
+    border-radius: 999px;
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-top: 1rem;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  /* ══════════════════════════════
+     SECTION 6 — TABLEAU COMPÉTENCES
+  ══════════════════════════════ */
+  #tableau {
+    padding: 4rem 5% 6rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  #tableau h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  #tableau h2 span { color: var(--blue); }
+  .table-wrap {
+    background: #0d1526;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    overflow-x: auto;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.78rem;
+  }
+  thead th {
+    background: #111d30;
+    padding: 0.85rem 0.75rem;
+    text-align: center;
+    font-weight: 700;
+    color: rgba(255,255,255,0.7);
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+    font-size: 0.72rem;
+  }
+  thead th:first-child { text-align: left; }
+  tbody tr { border-bottom: 1px solid rgba(255,255,255,0.04); }
+  tbody tr:last-child { border-bottom: none; }
+  tbody td {
+    padding: 0.7rem 0.75rem;
+    text-align: center;
+    color: rgba(255,255,255,0.55);
+  }
+  tbody td:first-child { text-align: left; color: rgba(255,255,255,0.8); min-width: 200px; }
+  tbody td:nth-child(2) {
+    color: var(--muted);
+    font-size: 0.72rem;
+    white-space: nowrap;
+  }
+  .cat-row td {
+    background: rgba(59,126,248,0.06);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--blue) !important;
+    padding: 0.5rem 0.75rem;
+  }
+  .check { color: var(--blue); font-size: 1rem; }
+  .table-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+  .legend-item {
+    background: #0d1526;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.6rem 1rem;
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.6);
+    flex: 1;
+    min-width: 180px;
+  }
+  .legend-item strong { color: rgba(255,255,255,0.9); display: block; margin-bottom: 0.2rem; }
+
+  /* ══════════════════════════════
+     SECTION 7 — CONTACT
+  ══════════════════════════════ */
+  #contact {
+    padding: 6rem 5%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh;
+  }
+  .contact-card {
+    background: #0d1526;
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 4rem 3rem;
+    text-align: center;
+    max-width: 760px;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+  .contact-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 60% 40% at 50% 0%, rgba(59,126,248,0.08), transparent);
+  }
+  .contact-title {
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    color: #fff;
+    margin-bottom: 1.25rem;
+    position: relative;
+  }
+  .contact-title span { color: var(--amber); }
+  .contact-sub {
+    color: rgba(255,255,255,0.55);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+    position: relative;
+  }
+  .contact-links {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    position: relative;
+  }
+  .contact-link {
+    background: #111d30;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    text-decoration: none;
+    color: #fff;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: border-color 0.2s;
+  }
+  .contact-link:hover { border-color: rgba(59,126,248,0.4); }
+  .contact-link .link-icon {
+    width: 38px; height: 38px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem;
+    background: rgba(245,158,11,0.15);
+    flex-shrink: 0;
+  }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 2rem;
+    font-size: 0.75rem;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    #portrait { grid-template-columns: 1fr; gap: 2rem; }
+    .expertise-grid { grid-template-columns: repeat(2, 1fr); }
+    .real-grid { grid-template-columns: 1fr 1fr; }
+    .contact-links { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 640px) {
+    .expertise-grid { grid-template-columns: 1fr; }
+    .real-grid { grid-template-columns: 1fr; }
+    .real-card.bac { grid-row: auto; }
+    .real-card.debian, .real-card.cisco { grid-column: 1; }
+    .bottom-row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Nav logo -->
+<div class="nav-logo">N</div>
+
+<!-- ══ HERO ══ -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="meteor"></div>
+
+  <div class="hero-badge">Étudiant STS SIO SISR</div>
+
+  <div class="hero-name">
+    <span class="first">Josua</span>
+    <span class="last">Larcher.</span>
+  </div>
+
+  <p class="hero-sub">
+    Services Informatiques aux Organisations<br>
+    Solutions d'Infrastructure, Systèmes et Réseaux.
+  </p>
+
+  <div class="hero-ctas">
+    <a href="#realisations" class="btn-primary">Réalisations</a>
+    <a href="CV_2025-2026.pdf" target="_blank" class="btn-outline">
+      <span>↗</span> Consulter CV
+    </a>
+  </div>
+
+  <a href="#portrait" class="hero-explore">
+    Explorer mon parcours
+    <span class="arrow-btn">↓</span>
+  </a>
+</section>
+
+<!-- ══ PORTRAIT ══ -->
+<section>
+  <div id="portrait">
+    <div>
+      <div class="portrait-eyebrow">
+        <span class="icon-circle">👤</span>
+        Portrait
+      </div>
+      <div class="portrait-left">
+        <h2 class="portrait-title">
+          Engagé dans la fiabilité<br>des <span>systèmes.</span>
+        </h2>
+        <div class="portrait-body">
+          <p>
+            Actuellement étudiant en <strong>STS SIO option SISR</strong> (Solutions d'Infrastructure, Systèmes et Réseaux), je me concentre sur l'apprentissage et la mise en œuvre de parcs informatiques performants.
+          </p>
+          <p>
+            Je travaille au quotidien sur les problématiques de <strong>cybersécurité opérationnelle</strong> et l'administration des serveurs Linux. Mon approche est basée sur la compréhension rigoureuse des infrastructures pour garantir leur sécurité et leur disponibilité.
+          </p>
+          <p>
+            Mon objectif est de contribuer efficacement à la défense numérique et à l'administration réseau, en apportant des solutions concrètes et structurées aux besoins technologiques actuels.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="profil-card">
+        <h3>Profil Rapide</h3>
+        <div class="profil-row">
+          <div class="profil-row-left">
+            <span>⌘</span> Domaine
+          </div>
+          <span class="val">Infrastructure</span>
+        </div>
+        <div class="profil-row">
+          <div class="profil-row-left">
+            <span>🛡</span> Focus
+          </div>
+          <span class="val">Cybersécurité</span>
+        </div>
+        <div class="profil-row">
+          <div class="profil-row-left">
+            <span>🌐</span> Localisation
+          </div>
+          <span class="val">Martinique</span>
+        </div>
+        <div class="quote-card">
+          "La sécurité n'est pas un produit, c'est un processus constant d'apprentissage et d'adaptation."
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PARCOURS ══ -->
+<section id="parcours">
+  <h2 class="section-title">Parcours.</h2>
+  <p class="section-sub">Cliquez sur une expérience pour explorer les détails techniques.</p>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-year">2025 – 2026</div>
+      <div class="timeline-dot"></div>
+      <div class="timeline-card">
+        <h3>Stage SAV / Maintenance Informatique</h3>
+        <div class="company">InfoCash</div>
+        <div class="timeline-tags">
+          <span class="timeline-tag">Migration Windows 10/11</span>
+          <span class="timeline-tag">Hardware PC & Mise à niveau</span>
+          <span class="timeline-tag">Diagnostic pannes matérielles</span>
+          <span class="timeline-tag">Remplacement composants</span>
+        </div>
+        <span class="voir-plus">+ Voir plus</span>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-year">2024 – 2025</div>
+      <div class="timeline-dot"></div>
+      <div class="timeline-card">
+        <h3>Stage Administrateur Systèmes</h3>
+        <div class="company">GAH</div>
+        <div class="timeline-tags">
+          <span class="timeline-tag">Hardware PC & Mise à niveau</span>
+          <span class="timeline-tag">Déploiement WDS/MDT</span>
+        </div>
+        <span class="voir-plus">+ Voir plus</span>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-year">2024</div>
+      <div class="timeline-dot"></div>
+      <div class="timeline-card">
+        <h3>Stage Maintenance Informatique</h3>
+        <div class="company">Collège Jacqueline Julius</div>
+        <div class="timeline-tags">
+          <span class="timeline-tag">Migration Windows 10/11</span>
+          <span class="timeline-tag">Serveur Debian (Test)</span>
+        </div>
+        <span class="voir-plus">+ Voir plus</span>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-year">2024</div>
+      <div class="timeline-dot"></div>
+      <div class="timeline-card">
+        <h3>Stage Électronique & SAV</h3>
+        <div class="company">Guy Vieules</div>
+        <div class="timeline-tags">
+          <span class="timeline-tag">Accueil client & Diagnostic</span>
+          <span class="timeline-tag">Soudure de composants</span>
+        </div>
+        <span class="voir-plus">+ Voir plus</span>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-year">2023</div>
+      <div class="timeline-dot"></div>
+      <div class="timeline-card">
+        <h3>Stage Technicien SAV</h3>
+        <div class="company">Leclerc</div>
+        <div class="timeline-tags">
+          <span class="timeline-tag">Diagnostic pannes matérielles</span>
+          <span class="timeline-tag">Remplacement composants</span>
+        </div>
+        <span class="voir-plus">+ Voir plus</span>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-year">2022 – 2023</div>
+      <div class="timeline-dot"></div>
+      <div class="timeline-card">
+        <h3>Stage Technicien Réseau</h3>
+        <div class="company">Orange</div>
+        <div class="timeline-tags">
+          <span class="timeline-tag">Câblage Fibre Optique</span>
+          <span class="timeline-tag">Brassage salle serveurs</span>
+        </div>
+        <span class="voir-plus">+ Voir plus</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ EXPERTISES ══ -->
+<section id="expertises">
+  <h2 class="section-title">Expertises.</h2>
+  <p class="section-sub">Mes domaines de spécialisation en informatique.</p>
+
+  <div class="expertise-grid">
+    <div class="expertise-card">
+      <div class="exp-icon blue">🖥️</div>
+      <h3>Systèmes &<br>Cloud</h3>
+      <div class="skill-tags">
+        <span class="skill-tag">Windows Server</span>
+        <span class="skill-tag">Debian 12</span>
+        <span class="skill-tag">Proxmox</span>
+        <span class="skill-tag">Active Directory</span>
+      </div>
+    </div>
+
+    <div class="expertise-card">
+      <div class="exp-icon green">🛡️</div>
+      <h3>Réseaux &<br>Sécurité</h3>
+      <div class="skill-tags">
+        <span class="skill-tag">Cisco IOS</span>
+        <span class="skill-tag">VLAN & Routage</span>
+        <span class="skill-tag">pfSense</span>
+        <span class="skill-tag">VPN IPsec</span>
+      </div>
+    </div>
+
+    <div class="expertise-card">
+      <div class="exp-icon amber">🔒</div>
+      <h3>Gouvernance &<br>RGPD</h3>
+      <div class="skill-tags">
+        <span class="skill-tag">Audit</span>
+        <span class="skill-tag">Analyse Risques</span>
+        <span class="skill-tag">RGPD</span>
+        <span class="skill-tag">Conformité</span>
+      </div>
+    </div>
+
+    <div class="expertise-card">
+      <div class="exp-icon indigo">⟨⟩</div>
+      <h3>Développement</h3>
+      <div class="skill-tags">
+        <span class="skill-tag">Bash</span>
+        <span class="skill-tag">Python</span>
+        <span class="skill-tag">HTML/CSS</span>
+        <span class="skill-tag">SQL</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ DIPLÔMES & RÉALISATIONS ══ -->
+<section id="realisations">
+  <h2 class="section-title">Diplômes <span class="amp">&</span><br>Réalisations.</h2>
+  <p class="section-sub">Un aperçu de mon socle académique et des projets techniques qui forgent mon expertise en SISR.</p>
+
+  <!-- Top row -->
+  <div style="display:grid;grid-template-columns:1.5fr 1fr;gap:1rem;margin-bottom:1rem;">
+    <!-- Bac card (large) -->
+    <div class="real-card bac" style="position:relative;overflow:hidden;">
+      <div style="position:absolute;right:-1.5rem;top:-1.5rem;font-size:9rem;opacity:0.06;line-height:1;">🎓</div>
+      <div class="card-icon" style="background:rgba(59,126,248,0.12);">🎓</div>
+      <div class="year-tag">2023</div>
+      <h3>Bac Pro SN-RISC</h3>
+      <p>Option Réseaux Informatiques et Systèmes Communicants. Base solide en maintenance et infrastructures. — Lycée Jeanne Catayée</p>
+    </div>
+    <!-- Right col -->
+    <div style="display:flex;flex-direction:column;gap:1rem;">
+      <div class="real-card">
+        <div class="card-icon" style="background:rgba(59,126,248,0.12);">🖥️</div>
+        <h3>Services Debian 12</h3>
+        <p>Déploiement DHCP, DNS et Apache sur serveurs Linux.</p>
+      </div>
+      <div class="real-card">
+        <div class="card-icon green-bg">🌐</div>
+        <h3>Topologies Cisco</h3>
+        <p>Routage inter-VLAN et ACLs sur maquettes complexes.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom row -->
+  <div class="bottom-row">
+    <div class="real-card">
+      <div class="card-icon amber-bg">📄</div>
+      <div class="eyebrow-label" style="color:var(--blue);">Parcours</div>
+      <h3>Mon CV Complet</h3>
+      <p>Consultez mon CV complet pour plus de détails sur mes compétences et expériences.</p>
+      <a href="CV_2025-2026.pdf" target="_blank" class="doc-link">Consulter le document ↗</a>
+    </div>
+
+    <div class="real-card">
+      <div class="card-icon" style="background:rgba(16,185,129,0.12);">🛡️</div>
+      <div class="eyebrow-label" style="color:var(--cyan);">Sécurité</div>
+      <h3>Certification ANSSI</h3>
+      <p>Sensibilisation SecNumAcadémie validée avec succès.</p>
+      <a href="#" class="doc-link">Consulter le document ↗</a>
+    </div>
+
+    <div class="real-card">
+      <div class="card-icon purple-bg">🏅</div>
+      <div class="eyebrow-label" style="color:var(--purple);">Numérique</div>
+      <h3>Certification Pix</h3>
+      <p>Validation officielle des compétences numériques et de la maîtrise des outils digitaux.</p>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div style="margin-top:1rem;">
+    <div class="real-card cta-blue">
+      <h3>Prêt pour de nouveaux défis techniques.</h3>
+      <a href="#contact" class="me-btn">Me contacter ↗</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ TABLEAU COMPÉTENCES ══ -->
+<section id="tableau">
+  <h2>Tableau de <span>Synthèse des Compétences</span></h2>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th style="text-align:left;min-width:200px;">Réalisations professionnelles</th>
+          <th>Période</th>
+          <th>Gérer le<br>patrimoine</th>
+          <th>Répondre aux<br>incidents</th>
+          <th>Développer<br>présence en<br>ligne</th>
+          <th>Travailler en<br>mode projet</th>
+          <th>Mettre à<br>disposition un<br>service</th>
+          <th>Organiser<br>dév. pro</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="cat-row"><td colspan="8">Formation (STS SIO 1)</td></tr>
+        <tr><td>1. Audit RGPD : Risques & Données (Centre Call)</td><td>2025</td><td class="check">✓</td><td></td><td></td><td class="check">✓</td><td></td><td class="check">✓</td></tr>
+        <tr><td>2. Installation & configuration serveur Debian</td><td>2025</td><td class="check">✓</td><td class="check">✓</td><td></td><td></td><td class="check">✓</td><td></td></tr>
+        <tr><td>3. Maquettage réseau Cisco Packet Tracer</td><td>2025</td><td class="check">✓</td><td></td><td></td><td></td><td class="check">✓</td><td></td></tr>
+        <tr><td>4. Création site web vitrine (HTML/CSS)</td><td>2025</td><td></td><td></td><td class="check">✓</td><td></td><td></td><td></td></tr>
+        <tr><td>5. Projet groupe: Refonte site web HTML</td><td>2025</td><td></td><td></td><td class="check">✓</td><td class="check">✓</td><td></td><td></td></tr>
+        <tr><td>6. Apprentissage dév web (Flexbox Froggy)</td><td>2025</td><td></td><td></td><td class="check">✓</td><td></td><td></td><td class="check">✓</td></tr>
+        <tr><td>7. Présentation: Cyber-menaces et danger</td><td>2025</td><td class="check">✓</td><td></td><td></td><td></td><td></td><td class="check">✓</td></tr>
+        <tr><td>8. Certification MOOC ANSSI</td><td>2025</td><td></td><td></td><td></td><td></td><td></td><td class="check">✓</td></tr>
+        <tr><td>9. TP Excel Avancé (Gestion de données)</td><td>2025</td><td class="check">✓</td><td></td><td></td><td></td><td></td><td></td></tr>
+
+        <tr class="cat-row"><td colspan="8">Milieu Pro (Antérieur)</td></tr>
+        <tr><td>1. Orange: Câblage fibre & salle serveurs</td><td>Antérieur</td><td class="check">✓</td><td class="check">✓</td><td></td><td class="check">✓</td><td class="check">✓</td><td></td></tr>
+        <tr><td>2. Guy Vieules: Réparation matériel TV</td><td>Antérieur</td><td></td><td class="check">✓</td><td></td><td></td><td></td><td></td></tr>
+        <tr><td>3. Leclerc: SAV- Maintenance informatique</td><td>Antérieur</td><td></td><td class="check">✓</td><td></td><td></td><td></td><td></td></tr>
+        <tr><td>4. Collège: Support & Maintenance parc</td><td>Antérieur</td><td class="check">✓</td><td class="check">✓</td><td></td><td></td><td></td><td></td></tr>
+        <tr><td>5. Distribution PC- Config. postes client</td><td>Antérieur</td><td class="check">✓</td><td></td><td></td><td></td><td class="check">✓</td><td></td></tr>
+        <tr><td>6. Sécurité aviation: Protocoles sûreté</td><td>Antérieur</td><td class="check">✓</td><td class="check">✓</td><td></td><td></td><td></td><td class="check">✓</td></tr>
+
+        <tr class="cat-row"><td colspan="8">Milieu Pro (1ère année & 2ème année)</td></tr>
+        <tr><td>1. InfoCash : Réparation &amp; Maintenance Informatique</td><td>2025-2026</td><td class="check">✓</td><td class="check">✓</td><td></td><td></td><td class="check">✓</td><td></td></tr>
+        <tr><td>2. Stage à venir – 2ème année</td><td>2026-2027</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="table-legend" style="margin-top:1.5rem;">
+    <div class="legend-item"><strong>Gérer le patrimoine</strong> Recensement ressources, sauvegardes, habilitations.</div>
+    <div class="legend-item"><strong>Répondre aux incidents</strong> Support utilisateur, traitement demandes système/réseau.</div>
+    <div class="legend-item"><strong>Présence en ligne</strong> Site web, référencement, image numérique.</div>
+    <div class="legend-item"><strong>Mode projet</strong> Planification, analyse objectifs, indicateurs de suivi.</div>
+    <div class="legend-item"><strong>Mise à disposition service</strong> Déploiement, tests d'intégration, accompagnement.</div>
+    <div class="legend-item"><strong>Dév. professionnel</strong> Veille techno, identité numérique, auto-formation (ANSSI).</div>
+  </div>
+</section>
+
+<!-- ══ CONTACT ══ -->
+<section id="contact">
+  <div class="contact-card">
+    <h2 class="contact-title">Contactez-moi<span>.</span></h2>
+    <p class="contact-sub">
+      Actuellement en recherche d'opportunités en cybersécurité et administration réseaux. N'hésitez pas à me contacter directement.
+    </p>
+    <div class="contact-links">
+      <a href="mailto:jojolarcher972@gmail.com" class="contact-link">
+        <span class="link-icon">✉️</span>
+        jojolarcher972@gmail.com
+      </a>
+      <a href="#" class="contact-link">
+        <span class="link-icon" style="background:rgba(245,158,11,0.15);">in</span>
+        LinkedIn / Josua Larcher
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  © 2025 Josua Larcher — Tous droits réservés
+</footer>
+
+<canvas id="particles-canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:0.55;"></canvas>
+
+<script>
+/* ─────────────────────────────────────────
+   1. SMOOTH SCROLL
+───────────────────────────────────────── */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+  });
+});
+
+/* ─────────────────────────────────────────
+   2. CANVAS PARTICLES (hero background)
+───────────────────────────────────────── */
+(function() {
+  const canvas = document.getElementById('particles-canvas');
+  const ctx = canvas.getContext('2d');
+  let W, H, particles = [];
+
+  function resize() {
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  function rand(a, b) { return a + Math.random() * (b - a); }
+
+  class Particle {
+    constructor() { this.reset(true); }
+    reset(initial) {
+      this.x = rand(0, W);
+      this.y = initial ? rand(0, H) : rand(H * 0.8, H + 20);
+      this.r = rand(0.4, 1.6);
+      this.vx = rand(-0.12, 0.12);
+      this.vy = rand(-0.35, -0.08);
+      this.alpha = rand(0.15, 0.75);
+      this.flicker = rand(0.005, 0.018);
+      this.phase = rand(0, Math.PI * 2);
+      /* colour: mostly white, some blue-ish */
+      const hue = Math.random() < 0.25 ? rand(200, 230) : 0;
+      const sat = hue ? '80%' : '0%';
+      this.color = `hsl(${hue},${sat},100%)`;
+    }
+    update(t) {
+      this.x += this.vx;
+      this.y += this.vy;
+      this.phase += this.flicker;
+      this.currentAlpha = this.alpha * (0.65 + 0.35 * Math.sin(this.phase));
+      if (this.y < -10 || this.x < -10 || this.x > W + 10) this.reset(false);
+    }
+    draw() {
+      ctx.save();
+      ctx.globalAlpha = this.currentAlpha;
+      ctx.fillStyle = this.color;
+      ctx.shadowColor = this.color;
+      ctx.shadowBlur = this.r * 3;
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+  }
+
+  /* shooting star */
+  let star = null;
+  function spawnStar() {
+    star = {
+      x: rand(W * 0.3, W * 0.8),
+      y: rand(H * 0.05, H * 0.4),
+      len: rand(80, 160),
+      vx: rand(3, 6),
+      vy: rand(1.5, 3.5),
+      alpha: 1,
+      done: false
+    };
+    setTimeout(spawnStar, rand(4000, 9000));
+  }
+  setTimeout(spawnStar, 2000);
+
+  for (let i = 0; i < 160; i++) particles.push(new Particle());
+
+  function loop(t) {
+    ctx.clearRect(0, 0, W, H);
+    particles.forEach(p => { p.update(t); p.draw(); });
+
+    if (star && !star.done) {
+      ctx.save();
+      ctx.globalAlpha = star.alpha;
+      const grad = ctx.createLinearGradient(star.x, star.y, star.x - star.len * 0.9, star.y - star.len * 0.4);
+      grad.addColorStop(0, 'rgba(255,255,255,0.9)');
+      grad.addColorStop(1, 'rgba(255,255,255,0)');
+      ctx.strokeStyle = grad;
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.moveTo(star.x, star.y);
+      ctx.lineTo(star.x - star.len * 0.9, star.y - star.len * 0.4);
+      ctx.stroke();
+      ctx.restore();
+      star.x += star.vx; star.y += star.vy; star.alpha -= 0.022;
+      if (star.alpha <= 0) star.done = true;
+    }
+
+    requestAnimationFrame(loop);
+  }
+  requestAnimationFrame(loop);
+
+  /* only show particles in hero zone — fade canvas on scroll */
+  window.addEventListener('scroll', () => {
+    const s = window.scrollY;
+    const fade = Math.max(0, 1 - s / (window.innerHeight * 0.7));
+    canvas.style.opacity = (fade * 0.55).toFixed(3);
+  });
+})();
+
+/* ─────────────────────────────────────────
+   3. SCROLL REVEAL (fade + slide up)
+───────────────────────────────────────── */
+(function() {
+  const style = document.createElement('style');
+  style.textContent = `
+    .reveal {
+      opacity: 0;
+      transform: translateY(36px);
+      transition: opacity 0.7s cubic-bezier(.22,1,.36,1), transform 0.7s cubic-bezier(.22,1,.36,1);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  `;
+  document.head.appendChild(style);
+
+  /* Tag elements to animate */
+  const targets = [
+    '.portrait-eyebrow', '.portrait-title', '.portrait-body p',
+    '.profil-card', '.quote-card',
+    '.section-title', '.section-sub',
+    '.expertise-card', '.real-card',
+    '.timeline-card', '.timeline-year',
+    '.contact-card', 'footer',
+    '.table-wrap', '.table-legend .legend-item',
+    '#tableau h2'
+  ];
+  targets.forEach(sel => {
+    document.querySelectorAll(sel).forEach((el, i) => {
+      el.classList.add('reveal');
+      el.style.transitionDelay = `${i * 0.07}s`;
+    });
+  });
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+})();
+
+/* ─────────────────────────────────────────
+   4. TIMELINE — progressive draw
+───────────────────────────────────────── */
+(function() {
+  const style = document.createElement('style');
+  style.textContent = `
+    .timeline::before {
+      transform-origin: top;
+      transform: scaleY(0);
+      transition: transform 1.4s cubic-bezier(.22,1,.36,1);
+    }
+    .timeline.drawn::before { transform: scaleY(1); }
+
+    .timeline-dot {
+      transform: translateX(-50%) scale(0);
+      transition: transform 0.4s cubic-bezier(.34,1.56,.64,1);
+    }
+    .timeline-dot.pop { transform: translateX(-50%) scale(1); }
+
+    .timeline-card {
+      opacity: 0;
+      transform: translateX(20px);
+      transition: opacity 0.55s ease, transform 0.55s cubic-bezier(.22,1,.36,1);
+    }
+    .timeline-card.slide-in { opacity: 1; transform: translateX(0); }
+  `;
+  document.head.appendChild(style);
+
+  const timeline = document.querySelector('.timeline');
+  if (!timeline) return;
+
+  /* remove the generic reveal class so our custom anim takes over */
+  timeline.querySelectorAll('.timeline-card').forEach(c => c.classList.remove('reveal', 'visible'));
+  timeline.querySelectorAll('.timeline-year').forEach(c => c.classList.remove('reveal', 'visible'));
+
+  let triggered = false;
+  const io = new IntersectionObserver(entries => {
+    if (triggered || !entries[0].isIntersecting) return;
+    triggered = true;
+
+    timeline.classList.add('drawn');
+
+    const items = timeline.querySelectorAll('.timeline-item');
+    items.forEach((item, i) => {
+      const dot = item.querySelector('.timeline-dot');
+      const card = item.querySelector('.timeline-card');
+      const delay = 300 + i * 220;
+      setTimeout(() => { if (dot) dot.classList.add('pop'); }, delay);
+      setTimeout(() => { if (card) card.classList.add('slide-in'); }, delay + 80);
+    });
+  }, { threshold: 0.1 });
+
+  io.observe(timeline);
+})();
+
+/* ─────────────────────────────────────────
+   5. 3D TILT on cards
+───────────────────────────────────────── */
+(function() {
+  const style = document.createElement('style');
+  style.textContent = `
+    .tiltable {
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      will-change: transform;
+      transform-style: preserve-3d;
+    }
+    .tiltable:hover {
+      box-shadow: 0 20px 50px rgba(0,0,0,0.5), 0 0 0 1px rgba(59,126,248,0.18);
+    }
+  `;
+  document.head.appendChild(style);
+
+  const tiltSelectors = ['.expertise-card', '.real-card', '.contact-card', '.profil-card'];
+  const els = tiltSelectors.flatMap(sel => [...document.querySelectorAll(sel)]);
+
+  els.forEach(el => {
+    el.classList.add('tiltable');
+
+    el.addEventListener('mousemove', e => {
+      const rect = el.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const dx = (e.clientX - cx) / (rect.width / 2);
+      const dy = (e.clientY - cy) / (rect.height / 2);
+      const maxTilt = 8;
+      el.style.transform = `perspective(700px) rotateY(${dx * maxTilt}deg) rotateX(${-dy * maxTilt}deg) scale(1.025)`;
+    });
+
+    el.addEventListener('mouseleave', () => {
+      el.style.transform = 'perspective(700px) rotateY(0deg) rotateX(0deg) scale(1)';
+    });
+  });
+})();
+</script>
+</body>
+</html>
